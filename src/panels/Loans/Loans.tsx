@@ -3,6 +3,8 @@ import {
   Avatar,
   Button,
   Caption,
+  Card,
+  CardGrid,
   Checkbox,
   Counter,
   FormItem,
@@ -26,8 +28,10 @@ import {
   Spacing,
   SplitCol,
   SplitLayout,
+  Subhead,
   SubnavigationBar,
   SubnavigationButton,
+  Title,
   View,
   ViewWidth,
 } from "@vkontakte/vkui";
@@ -42,9 +46,7 @@ import {
   Icon24ScanViewfinderOutline,
   Icon24UserAddOutline,
 } from "@vkontakte/icons";
-import { AmountFormItem, PeriodFormItem } from "../../components/Form";
-
-const MODAL_NAME = "filters";
+import { LoansItem } from "../../components/LoansItem";
 
 export const Loans: React.FC<PanelProps> = ({ id }: PanelProps) => {
   const app = useRequiredContext(AppStoreContext);
@@ -65,66 +67,52 @@ export const Loans: React.FC<PanelProps> = ({ id }: PanelProps) => {
         Loans
       </PanelHeader>
 
-      <Group separator="hide">
-        <SubnavigationBar>
-          <SubnavigationButton
-            before={<Icon24Filter />}
-            selected={false}
-            expandable
-            // after={
-            //   filtersCount > 0 && (
-            //     <Counter mode="primary" size="s">
-            //       {filtersCount}
-            //     </Counter>
-            //   )
-            // }
-            onClick={() => openModal(ACTIVE_MODAL.LOANS_FILTER)}
-          >
-            Фильтры
-          </SubnavigationButton>
+      <SubnavigationBar>
+        <SubnavigationButton
+          before={<Icon24Filter />}
+          selected={false}
+          expandable
+          // after={
+          //   filtersCount > 0 && (
+          //     <Counter mode="primary" size="s">
+          //       {filtersCount}
+          //     </Counter>
+          //   )
+          // }
+          onClick={() => openModal(ACTIVE_MODAL.LOANS_FILTER)}
+        >
+          Фильтры
+        </SubnavigationButton>
 
-          <SubnavigationButton
-            selected={sizeSelected}
-            onClick={() => setSizeSelected(!sizeSelected)}
-          >
-            Мой размер
-          </SubnavigationButton>
+        <SubnavigationButton
+          selected={sizeSelected}
+          onClick={() => setSizeSelected(!sizeSelected)}
+        >
+          Без отказов
+        </SubnavigationButton>
 
-          <SubnavigationButton
-            before={<Icon24FavoriteOutline />}
-            selected={faveSelected}
-            onClick={() => setFaveSelected(!faveSelected)}
-          >
-            Избранное
-          </SubnavigationButton>
-        </SubnavigationBar>
-      </Group>
+        <SubnavigationButton
+          before={<Icon24FavoriteOutline />}
+          selected={faveSelected}
+          onClick={() => setFaveSelected(!faveSelected)}
+        >
+          Со страховкой
+        </SubnavigationButton>
+      </SubnavigationBar>
 
       <Group>
-        <SubnavigationBar mode="fixed">
-          <SubnavigationButton
-            before={<Icon24ScanViewfinderOutline />}
-            size="l"
-            textLevel={1}
-            onClick={() => {}}
-          >
-            Сканировать QR
-          </SubnavigationButton>
-
-          <SubnavigationButton
-            before={<Icon24UserAddOutline />}
-            size="l"
-            textLevel={1}
-            onClick={() => {}}
-          >
-            Добавить друга
-          </SubnavigationButton>
-        </SubnavigationBar>
-
-        <Header>Важные</Header>
-        <SimpleCell>Иван Барышев</SimpleCell>
-        <SimpleCell>Михаил Лихачёв</SimpleCell>
-        <SimpleCell>Artur Stambultsian</SimpleCell>
+        {["1", "2", "3"].map((item) => {
+          return (
+            <LoansItem
+              key={item}
+              id={item}
+              companyName="Comapny Name"
+              subInfo="subInfo"
+              amount={20}
+              period={2}
+            />
+          );
+        })}
       </Group>
     </Panel>
   );

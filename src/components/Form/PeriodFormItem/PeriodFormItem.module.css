@@ -3,3 +3,10 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.row {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 80px;
+    align-items: center;
+}

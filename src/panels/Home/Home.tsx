@@ -24,6 +24,8 @@ import {
   Tabbar,
   TabbarItem,
   Caption,
+  Text,
+  Title,
 } from "@vkontakte/vkui";
 import { UserInfo } from "@vkontakte/vk-bridge";
 import { useRequiredContext } from "../../hooks/useRequiredContext";
@@ -87,46 +89,48 @@ export const Home: React.FC<PanelProps> = ({ id }: PanelProps) => {
 
   return (
     <Panel id={id}>
-      <PanelHeader right={<PanelHeaderBack />}>Home</PanelHeader>
+      <PanelHeader>Home</PanelHeader>
 
-      <Div>
-        <Group separator="hide">
-          <SimpleCell
-            after={
-              <Avatar
-                size={72}
-                src={""}
-                onClick={() => openPopup(ACTIVE_POPUP.TEST)}
-              />
-            }
-          >
-            <h4>Привет, Саша Гришин</h4>
-          </SimpleCell>
-        </Group>
+      <Group separator="hide">
+        <SimpleCell
+          after={
+            <Avatar
+              size={72}
+              src={""}
+              onClick={() => openPopup(ACTIVE_POPUP.TEST)}
+            />
+          }
+        >
+          <Title level="1" style={{ marginBottom: 4 }}>
+            Привет,
+          </Title>
+          <Title level="3">Саша Гришин</Title>
+        </SimpleCell>
+      </Group>
 
-        {/* <Group separator="hide">
+      {/* <Group separator="hide">
           <HorizontalScroll>
             <div style={{ display: "flex" }}>{sliderItem}</div>
           </HorizontalScroll>
         </Group> */}
-        <Group>
-          <CardGrid size="l">
-            <Card mode="outline">
-              <Header mode="primary">Рассчитать займ</Header>
-              <PeriodFormItem />
-              <AmountFormItem />
-              <FormItem>
-                <Button
-                  stretched={true}
-                  mode={"primary"}
-                  onClick={() =>
-                    setActivePanel(ACTIVE_PANEL.LOANS, ACTIVE_STORY.HOME)
-                  }
-                >
-                  Посмотреть предложения
-                </Button>
-              </FormItem>
-              {/* <FormItem>
+      <Group>
+        <CardGrid size="l">
+          <Card mode="outline">
+            <Header mode="primary">Рассчитать микрозайм</Header>
+            <PeriodFormItem />
+            <AmountFormItem />
+            <FormItem>
+              <Button
+                stretched={true}
+                mode="commerce"
+                onClick={() =>
+                  setActivePanel(ACTIVE_PANEL.LOANS, ACTIVE_STORY.HOME)
+                }
+              >
+                Посмотреть предложения
+              </Button>
+            </FormItem>
+            {/* <FormItem>
                 <Select
                   onChange={(e) => setValue(Number(e.target.value))}
                   value={String(value)}
@@ -136,10 +140,9 @@ export const Home: React.FC<PanelProps> = ({ id }: PanelProps) => {
                   ]}
                 />
               </FormItem> */}
-            </Card>
-          </CardGrid>
-        </Group>
-      </Div>
+          </Card>
+        </CardGrid>
+      </Group>
     </Panel>
   );
 };

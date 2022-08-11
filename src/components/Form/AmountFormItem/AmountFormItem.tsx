@@ -1,4 +1,12 @@
-import { FormItem, Input, Spacing, Slider, Caption } from "@vkontakte/vkui";
+import {
+  FormItem,
+  Input,
+  Spacing,
+  Slider,
+  Caption,
+  SizeType,
+  Headline,
+} from "@vkontakte/vkui";
 import { useState } from "react";
 
 import styles from "./AmountFormItem.module.css";
@@ -6,13 +14,17 @@ import styles from "./AmountFormItem.module.css";
 export const AmountFormItem = () => {
   const [amount, setAmount] = useState<number>(10000);
   return (
-    <FormItem top="Сумма займа, рубли">
-      <Input
-        max={200000}
-        type="number"
-        value={String(amount)}
-        onChange={(e) => setAmount(Number(e.target.value))}
-      />
+    <FormItem>
+      <div className={styles.row}>
+        <Headline weight="regular">Сумма займа, рубли</Headline>
+        <Input
+          sizeY={SizeType.COMPACT}
+          max={200000}
+          type="number"
+          value={String(amount)}
+          onChange={(e) => setAmount(Number(e.target.value))}
+        />
+      </div>
       <Spacing />
       <Slider
         step={100}

@@ -8,6 +8,7 @@ import {
   ACTIVE_PANEL,
   ACTIVE_POPUP,
   ACTIVE_STORY,
+  PARAMS_LIST,
 } from "../constants";
 import { PopoutsList } from "../popouts";
 
@@ -15,11 +16,15 @@ type activePanels = {
   [key: string]: ACTIVE_PANEL;
 };
 
+type Params = {
+  [key: string]: string;
+};
+
 export class AppStore implements BaseDataProvider {
   @observable
   activePanels: activePanels = {
     [ACTIVE_STORY.HOME]: ACTIVE_PANEL.HOME,
-    [ACTIVE_STORY.INSURANCE]: ACTIVE_PANEL.INSURANCE,
+    [ACTIVE_STORY.CALCULATOR]: ACTIVE_PANEL.CALCULATOR,
     [ACTIVE_STORY.NEWS]: ACTIVE_PANEL.NEWS,
     [ACTIVE_STORY.PROFILE]: ACTIVE_PANEL.PROFILE,
   };
@@ -33,6 +38,9 @@ export class AppStore implements BaseDataProvider {
   @observable.struct
   activePopup: ACTIVE_POPUP | null = null;
 
+  @observable.struct
+  params: Params | undefined = undefined;
+
   constructor() {
     makeObservable(this);
   }
@@ -43,8 +51,9 @@ export class AppStore implements BaseDataProvider {
   }
 
   @action.bound
-  setActivePanel(value: ACTIVE_PANEL, story: ACTIVE_STORY) {
+  setActivePanel(value: ACTIVE_PANEL, story: ACTIVE_STORY, params?: Params) {
     this.activePanels[story] = value;
+    this.params = params;
   }
 
   @action.bound

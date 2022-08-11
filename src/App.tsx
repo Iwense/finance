@@ -48,6 +48,7 @@ import {
 } from "@vkontakte/icons";
 import { ACTIVE_PANEL, ACTIVE_STORY } from "./constants";
 import { Modals } from "./modals";
+import { Calculator, LoanDetails } from "./panels";
 
 export const App: React.FC = () => {
   const appStore = new AppStore();
@@ -194,8 +195,8 @@ const AppEpics = observer(
               </TabbarItem>
               <TabbarItem
                 onClick={onStoryChange}
-                selected={activeStory === "insurance"}
-                data-story="insurance"
+                selected={activeStory === "calculator"}
+                data-story="calculator"
               >
                 <Icon28ServicesOutline />
               </TabbarItem>
@@ -221,16 +222,10 @@ const AppEpics = observer(
         <View id="home" activePanel={activePanels.home}>
           <Home id="home" />
           <Loans id="loans" />
+          <LoanDetails id="loan_details" />
         </View>
-        <View id="insurance" activePanel={activePanels.insurance}>
-          <Panel id="insurance">
-            <PanelHeader>Insurance</PanelHeader>
-            <Group>
-              <Placeholder
-                icon={<Icon28ServicesOutline width={56} height={56} />}
-              ></Placeholder>
-            </Group>
-          </Panel>
+        <View id="calculator" activePanel={activePanels.calculator}>
+          <Calculator id="calculator" />
         </View>
         <View id="news" activePanel={activePanels.news}>
           <Panel id="news">

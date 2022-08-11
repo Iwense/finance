@@ -1,0 +1,16 @@
+.row {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    gap: 4px;
+}
+
+.navigationButton {
+    background-color: #daebfe;
+    border: 1px solid #5f97d6;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    color: #000;
+}
