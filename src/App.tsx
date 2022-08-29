@@ -30,25 +30,32 @@ import {
   AppRoot,
 } from "@vkontakte/vkui";
 
-import { Home, Info, Loans } from "./panels";
-import { Navigation } from "./components/navigation";
-import { getPlatform } from "./utils";
+import { Home, Loans, User } from "panels";
+import { Navigation } from "components/navigation";
+import { getPlatform } from "utils";
 import bridge, { UserInfo } from "@vkontakte/vk-bridge";
 import { observer } from "mobx-react-lite";
-import { AppStore, AppStoreProvider, AppStoreContext } from "./store";
+import { AppStore, AppStoreProvider, AppStoreContext } from "store";
 import { useRequiredContext } from "./hooks/useRequiredContext";
 import {
-  Icon28NewsfeedOutline,
   Icon28ServicesOutline,
   Icon28MessageOutline,
   Icon28ClipOutline,
   Icon28UserCircleOutline,
-  Icon56NewsfeedOutline,
+  Icon28UserSquareOutline,
   Icon20NewsfeedSlashOutline,
+  Icon28KeyboardBotsOutline,
+  Icon28NewsfeedOutline,
+  Icon28HomeOutline,
+  Icon28MoneyHistoryBackwardOutline,
+  Icon28MoneyRequestOutline,
 } from "@vkontakte/icons";
+import { Icon56WalletOutline } from "@vkontakte/icons";
 import { ACTIVE_PANEL, ACTIVE_STORY } from "./constants";
 import { Modals } from "./modals";
 import { Calculator, LoanDetails } from "./panels";
+import { CreditCalc } from "panels/Calculator/panels/CreditCalc";
+import { CreditCalcConnected } from "panels/Calculator/panels/CreditCalc/connected";
 
 export const App: React.FC = () => {
   const appStore = new AppStore();
@@ -191,21 +198,27 @@ const AppEpics = observer(
                 selected={activeStory === "home"}
                 data-story="home"
               >
-                <Icon28NewsfeedOutline />
+                <Icon28MoneyRequestOutline
+                  fill={activeStory === "home" ? "#28a525" : undefined}
+                />
               </TabbarItem>
               <TabbarItem
                 onClick={onStoryChange}
                 selected={activeStory === "calculator"}
                 data-story="calculator"
               >
-                <Icon28ServicesOutline />
+                <Icon28MoneyHistoryBackwardOutline
+                  fill={activeStory === "calculator" ? "#28a525" : undefined}
+                />
               </TabbarItem>
               <TabbarItem
                 onClick={onStoryChange}
                 selected={activeStory === "news"}
                 data-story="news"
               >
-                <Icon28ClipOutline />
+                <Icon28NewsfeedOutline
+                  fill={activeStory === "news" ? "#28a525" : undefined}
+                />
               </TabbarItem>
               <TabbarItem
                 onClick={onStoryChange}
@@ -213,7 +226,9 @@ const AppEpics = observer(
                 data-story="profile"
                 // indicator={<Badge mode="prominent" />}
               >
-                <Icon28UserCircleOutline />
+                <Icon28UserSquareOutline
+                  fill={activeStory === "profile" ? "#28a525" : undefined}
+                />
               </TabbarItem>
             </Tabbar>
           )
@@ -226,6 +241,7 @@ const AppEpics = observer(
         </View>
         <View id="calculator" activePanel={activePanels.calculator}>
           <Calculator id="calculator" />
+          <CreditCalcConnected id="credit_calc" />
         </View>
         <View id="news" activePanel={activePanels.news}>
           <Panel id="news">
@@ -238,14 +254,7 @@ const AppEpics = observer(
           </Panel>
         </View>
         <View id="profile" activePanel={activePanels.profile}>
-          <Panel id="profile">
-            <PanelHeader>Profile</PanelHeader>
-            <Group style={{ height: "1000px" }}>
-              <Placeholder
-                icon={<Icon28UserCircleOutline width={56} height={56} />}
-              ></Placeholder>
-            </Group>
-          </Panel>
+          <User id="profile" />
         </View>
       </Epic>
     );

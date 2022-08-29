@@ -1,5 +1,37 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+/* background-color: #65c063; */
+.vkuiSlider {
+    padding: 0px;
+}
+
+.vkuiSlider::before {
+    background-color: transparent;
+}
+
+.vkuiSlider__thumb {
+    width: 12px;
+    height: 12px;
+    top: -6px;
+
+    background-color: #65c063;
+}
+
+.vkuiSlider__dragger::before {
+    background-color: #8dd08c;
+    width: calc(100% + 6px);
+    left: 0;
+}
+
+.vkuiFormField:focus-within .vkuiFormField__border,
+.vkuiFormField :focus~.vkuiFormField__border,
+.vkuiChipsInput--focused .vkuiFormField__border {
+    border-color: #8dd08c;
+}
+
+.vkuiTabs--default .vkuiTabsItem--selected::after {
+    background-color: #8dd08c;
 }

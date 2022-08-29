@@ -1,0 +1,19 @@
+.input {
+    border: 2px solid #8dd08c;
+}
+
+.sliderWrapper {
+    padding: 0 16px 0 8px;
+}
+
+.slider {
+    margin-top: -14px;
+    z-index: 3;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 8px;
+}
+

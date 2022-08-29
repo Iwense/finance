@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Avatar,
   Banner,
   Button,
   Card,
@@ -9,138 +8,127 @@ import {
   FormItem,
   Group,
   Header,
-  HorizontalCell,
-  HorizontalScroll,
-  IconButton,
-  Input,
   Panel,
   PanelHeader,
-  PanelHeaderBack,
-  platform,
-  Select,
-  SimpleCell,
-  Slider,
-  Spacing,
-  Tabbar,
-  TabbarItem,
-  Caption,
   Text,
   Title,
 } from "@vkontakte/vkui";
-import { UserInfo } from "@vkontakte/vk-bridge";
-import { useRequiredContext } from "../../hooks/useRequiredContext";
-// import { setDoneSnackbar, setErrorSnackbar } from "../hooks";
-import { PanelProps } from "..";
-import { AppStoreContext } from "../../store";
+import { useRequiredContext } from "hooks/useRequiredContext";
+import { PanelProps } from "panels";
+import { AppStoreContext } from "store";
+import cn from "classnames";
+
+import { ACTIVE_PANEL, ACTIVE_POPUP, ACTIVE_STORY } from "constants/index";
+import { Icon24Filter, Icon24FavoriteOutline } from "@vkontakte/icons";
 
 import styles from "./Home.module.css";
-import { ACTIVE_PANEL, ACTIVE_POPUP, ACTIVE_STORY } from "../../constants";
-import { PeriodFormItem } from "../../components/Form";
-import { AmountFormItem } from "../../components/Form/AmountFormItem/AmountFormItem";
+
+const LIST_OF_CARDS = [
+  {
+    id: 1,
+    name: "Займы",
+    img: "",
+    panelName: ACTIVE_PANEL.LOANS,
+    disabled: false,
+  },
+  {
+    id: 2,
+    name: "Кредиты",
+    img: "",
+    panelName: ACTIVE_PANEL.CREDIT,
+    disabled: true,
+  },
+  {
+    id: 3,
+    name: "Страхование",
+    img: "",
+    panelName: ACTIVE_PANEL.INSURANCE,
+    disabled: true,
+  },
+  {
+    id: 4,
+    name: "Карты",
+    img: "",
+    panelName: ACTIVE_PANEL.BANK_CARDS,
+    disabled: true,
+  },
+  {
+    id: 5,
+    name: "Ипотека",
+    img: "",
+    panelName: ACTIVE_PANEL.IPOTEKA,
+    disabled: true,
+  },
+  {
+    id: 6,
+    name: "Инвестиции",
+    img: "",
+    panelName: ACTIVE_PANEL.INVESTING,
+    disabled: true,
+  },
+];
 
 export const Home: React.FC<PanelProps> = ({ id }: PanelProps) => {
-  // const vkUser: UserInfo = useAtomValue(vkUserAtom);
-
   const app = useRequiredContext(AppStoreContext);
-  const { setActivePanel, openPopup } = app;
+  const { setActivePanel, openPopup, setActiveRoute } = app;
 
-  const sliderItem = [
-    <HorizontalCell size="l">
-      <Banner
-        mode="image"
-        header="Мои достижения"
-        subheader="Разблокировано 9 из 36"
-        background={
-          <div
-            style={{
-              backgroundColor: "#65c063",
-              backgroundImage:
-                "url(https://sun9-59.userapi.com/7J6qHkTa_P8VKRTO5gkh6MizcCEefz04Y0gDmA/y6dSjdtPU4U.jpg)",
-              backgroundPosition: "right bottom",
-              backgroundSize: 320,
-              backgroundRepeat: "no-repeat",
-            }}
-          />
-        }
-        actions={<Button mode="overlay_primary">Подробнее</Button>}
-      />
-    </HorizontalCell>,
-    // <HorizontalCell>
-    //   <Banner
-    //     mode="image"
-    //     header="Мои Успехи"
-    //     subheader="Разблокировано 9 из 36"
-    //     background={
-    //       <div
-    //         style={{
-    //           backgroundColor: "#65c063",
-    //           backgroundImage:
-    //             "url(https://sun9-59.userapi.com/7J6qHkTa_P8VKRTO5gkh6MizcCEefz04Y0gDmA/y6dSjdtPU4U.jpg)",
-    //           backgroundPosition: "right bottom",
-    //           backgroundSize: 320,
-    //           backgroundRepeat: "no-repeat",
-    //         }}
-    //       />
-    //     }
-    //     actions={<Button mode="overlay_primary">Подробнее</Button>}
-    //   />
-    // </HorizontalCell>,
-  ];
+  const handleCardClick = (disabled: boolean, panelName: ACTIVE_PANEL) => {
+    if (disabled) {
+      openPopup(ACTIVE_POPUP.NOT_AVAILABLE);
+    } else {
+      setActivePanel(panelName, ACTIVE_STORY.HOME);
+    }
+  };
 
   return (
     <Panel id={id}>
-      <PanelHeader>Home</PanelHeader>
-
+      <PanelHeader>Все о финансах</PanelHeader>
       <Group separator="hide">
-        <SimpleCell
-          after={
-            <Avatar
-              size={72}
-              src={""}
-              onClick={() => openPopup(ACTIVE_POPUP.TEST)}
+        <Banner
+          mode="image"
+          header="Рассчитать кредит"
+          subheader="за пару минут"
+          background={
+            <div
+              style={{
+                backgroundColor: "#65c063",
+                backgroundImage:
+                  "url(https://sun9-59.userapi.com/7J6qHkTa_P8VKRTO5gkh6MizcCEefz04Y0gDmA/y6dSjdtPU4U.jpg)",
+                backgroundPosition: "right bottom",
+                backgroundSize: 320,
+                backgroundRepeat: "no-repeat",
+              }}
             />
           }
-        >
-          <Title level="1" style={{ marginBottom: 4 }}>
-            Привет,
-          </Title>
-          <Title level="3">Саша Гришин</Title>
-        </SimpleCell>
+          actions={
+            <Button
+              mode="overlay_primary"
+              onClick={() =>
+                setActiveRoute(
+                  ACTIVE_PANEL.CREDIT_CALC,
+                  ACTIVE_STORY.CALCULATOR
+                )
+              }
+            >
+              Подробнее
+            </Button>
+          }
+        />
       </Group>
 
-      {/* <Group separator="hide">
-          <HorizontalScroll>
-            <div style={{ display: "flex" }}>{sliderItem}</div>
-          </HorizontalScroll>
-        </Group> */}
-      <Group>
-        <CardGrid size="l">
-          <Card mode="outline">
-            <Header mode="primary">Рассчитать микрозайм</Header>
-            <PeriodFormItem />
-            <AmountFormItem />
-            <FormItem>
-              <Button
-                stretched={true}
-                mode="commerce"
-                onClick={() =>
-                  setActivePanel(ACTIVE_PANEL.LOANS, ACTIVE_STORY.HOME)
-                }
-              >
-                Посмотреть предложения
-              </Button>
-            </FormItem>
-            {/* <FormItem>
-                <Select
-                  onChange={(e) => setValue(Number(e.target.value))}
-                  value={String(value)}
-                  options={[
-                    { value: 10, label: "10" },
-                    { value: 20, label: "20" },
-                  ]}
-                />
-              </FormItem> */}
-          </Card>
+      <Group separator="hide">
+        <CardGrid size="m">
+          {LIST_OF_CARDS.map((card) => (
+            <Card
+              key={card.id}
+              className={cn(styles.card, { [styles.disabled]: card.disabled })}
+              onClick={() => handleCardClick(card.disabled, card.panelName)}
+            >
+              <Title className={styles.title} level="2">
+                {card.name}
+              </Title>
+            </Card>
+          ))}
         </CardGrid>
       </Group>
     </Panel>

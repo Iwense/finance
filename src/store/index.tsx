@@ -1,6 +1,4 @@
 import React from "react";
-import { UserInfo } from "@vkontakte/vk-bridge";
-import { Snackbar } from "../types";
 import { BaseDataProvider, createDataLayout } from "./DataLayout";
 import { action, computed, makeObservable, observable } from "mobx";
 import {
@@ -8,9 +6,10 @@ import {
   ACTIVE_PANEL,
   ACTIVE_POPUP,
   ACTIVE_STORY,
+  DEFAULT_ACTIVE_STORY,
   PARAMS_LIST,
-} from "../constants";
-import { PopoutsList } from "../popouts";
+} from "constants/index";
+import { PopoutsList } from "popouts";
 
 type activePanels = {
   [key: string]: ACTIVE_PANEL;
@@ -22,12 +21,7 @@ type Params = {
 
 export class AppStore implements BaseDataProvider {
   @observable
-  activePanels: activePanels = {
-    [ACTIVE_STORY.HOME]: ACTIVE_PANEL.HOME,
-    [ACTIVE_STORY.CALCULATOR]: ACTIVE_PANEL.CALCULATOR,
-    [ACTIVE_STORY.NEWS]: ACTIVE_PANEL.NEWS,
-    [ACTIVE_STORY.PROFILE]: ACTIVE_PANEL.PROFILE,
-  };
+  activePanels: activePanels = DEFAULT_ACTIVE_STORY;
 
   @observable.struct
   activeStory: ACTIVE_STORY = ACTIVE_STORY.HOME;
@@ -47,6 +41,9 @@ export class AppStore implements BaseDataProvider {
 
   @action.bound
   setActiveStory(value: ACTIVE_STORY) {
+    if (value === this.activeStory) {
+      this.setActivePanel(DEFAULT_ACTIVE_STORY[value], value);
+    }
     this.activeStory = value;
   }
 
@@ -54,6 +51,12 @@ export class AppStore implements BaseDataProvider {
   setActivePanel(value: ACTIVE_PANEL, story: ACTIVE_STORY, params?: Params) {
     this.activePanels[story] = value;
     this.params = params;
+  }
+
+  @action.bound
+  setActiveRoute(value: ACTIVE_PANEL, story: ACTIVE_STORY, params?: Params) {
+    this.setActiveStory(story);
+    this.setActivePanel(value, story, params);
   }
 
   @action.bound

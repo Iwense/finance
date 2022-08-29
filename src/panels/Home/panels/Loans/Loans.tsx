@@ -1,52 +1,19 @@
 import React, { useState } from "react";
 import {
-  Avatar,
-  Button,
-  Caption,
-  Card,
-  CardGrid,
-  Checkbox,
-  Counter,
-  FormItem,
-  FormLayout,
   Group,
-  Header,
-  Input,
-  IOS,
-  ModalPage,
-  ModalPageHeader,
-  ModalRoot,
   Panel,
   PanelHeader,
   PanelHeaderBack,
-  PanelHeaderButton,
-  PanelHeaderClose,
-  Placeholder,
-  platform,
-  SimpleCell,
-  Slider,
-  Spacing,
-  SplitCol,
-  SplitLayout,
-  Subhead,
   SubnavigationBar,
   SubnavigationButton,
-  Title,
-  View,
-  ViewWidth,
 } from "@vkontakte/vkui";
-import { PanelProps } from "..";
-import { useRequiredContext } from "../../hooks/useRequiredContext";
-import { AppStoreContext } from "../../store";
-import { ACTIVE_MODAL, ACTIVE_PANEL, ACTIVE_STORY } from "../../constants";
-import {
-  Icon24Dismiss,
-  Icon24Filter,
-  Icon24FavoriteOutline,
-  Icon24ScanViewfinderOutline,
-  Icon24UserAddOutline,
-} from "@vkontakte/icons";
-import { LoansItem } from "../../components/LoansItem";
+import { Icon24Filter, Icon24FavoriteOutline } from "@vkontakte/icons";
+
+import { PanelProps } from "panels";
+import { useRequiredContext } from "hooks/useRequiredContext";
+import { AppStoreContext } from "store";
+import { ACTIVE_MODAL, ACTIVE_PANEL, ACTIVE_STORY } from "constants/index";
+import { LoansItem } from "components/LoansItem";
 
 export const Loans: React.FC<PanelProps> = ({ id }: PanelProps) => {
   const app = useRequiredContext(AppStoreContext);

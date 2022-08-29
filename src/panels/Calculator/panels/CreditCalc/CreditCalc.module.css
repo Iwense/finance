@@ -1,0 +1,9 @@
+.row {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-row-start: row-end;
+}
+
+.select {
+    align-self: end;
+}

@@ -13,62 +13,50 @@ import {
   SizeType,
   Input,
   Div,
+  Cell,
+  Separator,
+  Spacing,
+  List,
 } from "@vkontakte/vkui";
 import { useState } from "react";
-import { PanelProps } from "..";
-
-const enum CALCULATE_BY {
-  CREDIT_AMOUNT = "credit_amount",
-  REAL_ESTATE = "real_estate",
-}
+import { PanelProps } from "panels";
+import {
+  Icon28Notifications,
+  Icon28BlockOutline,
+  Icon28UserOutline,
+  Icon28SlidersOutline,
+  Icon28PrivacyOutline,
+  Icon28SettingsOutline,
+} from "@vkontakte/icons";
+import { useRequiredContext } from "hooks/useRequiredContext";
+import { AppStoreContext } from "store";
+import { ACTIVE_PANEL, ACTIVE_STORY } from "constants/index";
 
 export const Calculator: React.FC<PanelProps> = ({ id }) => {
-  const [activeTab, setActiveTab] = useState<CALCULATE_BY>(
-    CALCULATE_BY.CREDIT_AMOUNT
-  );
+  const app = useRequiredContext(AppStoreContext);
+  const { setActivePanel, openPopup } = app;
+
+  const handleCalcClick = (panelName: ACTIVE_PANEL) => {
+    setActivePanel(panelName, ACTIVE_STORY.CALCULATOR);
+  };
 
   return (
     <Panel id={id}>
-      <PanelHeader>Ипотечный калькулятор</PanelHeader>
-      <Header>Рассчитать</Header>
-      <Tabs>
-        <HorizontalScroll>
-          <TabsItem
-            onClick={() => setActiveTab(CALCULATE_BY.REAL_ESTATE)}
-            selected={activeTab === CALCULATE_BY.REAL_ESTATE}
-          >
-            <Caption>По стоимости недвижимости</Caption>
-          </TabsItem>
-          <TabsItem
-            onClick={() => setActiveTab(CALCULATE_BY.CREDIT_AMOUNT)}
-            selected={activeTab === CALCULATE_BY.CREDIT_AMOUNT}
-          >
-            <Caption>По сумме кредита</Caption>
-          </TabsItem>
-        </HorizontalScroll>
-      </Tabs>
-
-      {/* <Div> */}
+      <PanelHeader>Рассчитать</PanelHeader>
       <Group>
-        <FormItem
-          top="Стоиомсть недвижимости"
-          // status={email ? "valid" : "error"}
-          // bottom={
-          //   email
-          //     ? "Электронная почта введена верно!"
-          //     : "Пожалуйста, введите электронную почту"
-          // }
-        >
-          <Input
-            sizeY={SizeType.COMPACT}
-            type="number"
-            name="real_estate_price"
-            value={"a"}
-            onChange={() => {}}
-          />
-        </FormItem>
+        <List>
+          <Cell
+            expandable
+            before={<Icon28UserOutline />}
+            onClick={() => handleCalcClick(ACTIVE_PANEL.CREDIT_CALC)}
+          >
+            Кредитный калькулятор
+          </Cell>
+          <Cell expandable before={<Icon28SettingsOutline />}>
+            Ипотечный калькулятор
+          </Cell>
+        </List>
       </Group>
-      {/* </Div> */}
     </Panel>
   );
 };

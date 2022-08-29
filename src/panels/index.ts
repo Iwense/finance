@@ -1,8 +1,6 @@
-export * from './Home/Home'
-export * from './Loans/Loans'
-export * from './Info'
+export * from './Home'
 export * from './Calculator'
-export * from './LoanDetails'
+export * from './User'
 
 
 export type PanelProps = {

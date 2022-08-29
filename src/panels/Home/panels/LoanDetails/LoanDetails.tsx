@@ -2,52 +2,27 @@ import React, { useState } from "react";
 import {
   Avatar,
   Button,
-  Caption,
   Card,
   CardGrid,
   Div,
   Group,
-  Header,
-  Headline,
-  InfoRow,
   Panel,
   PanelHeader,
   PanelHeaderBack,
-  Separator,
   SimpleCell,
   Subhead,
   Title,
-  Text,
-  Chip,
-  HorizontalCell,
-  HorizontalScroll,
-  CardScroll,
   SubnavigationBar,
   SubnavigationButton,
   FixedLayout,
 } from "@vkontakte/vkui";
-import { PanelProps } from "..";
-import { useRequiredContext } from "../../hooks/useRequiredContext";
-import { AppStoreContext } from "../../store";
-import {
-  ACTIVE_MODAL,
-  ACTIVE_PANEL,
-  ACTIVE_POPUP,
-  ACTIVE_STORY,
-  PARAMS_LIST,
-} from "../../constants";
-
-import {
-  Icon24CheckCircleOutline,
-  Icon24FavoriteOutline,
-  Icon24Filter,
-} from "@vkontakte/icons";
-import { Icon28CheckCircleFill } from "@vkontakte/icons";
+import { PanelProps } from "panels";
+import { useRequiredContext } from "hooks/useRequiredContext";
+import { AppStoreContext } from "store";
+import { ACTIVE_PANEL, ACTIVE_STORY, PARAMS_LIST } from "constants/index";
 
 import styles from "./LoanDetails.module.css";
-import { TextValue } from "../../components/TextValue";
-import src from "@vkontakte/vk-bridge";
-import { ColorChip } from "../../components/ColorChip";
+import { TextValue } from "components/TextValue";
 
 export const LoanDetails: React.FC<PanelProps> = ({ id }: PanelProps) => {
   const app = useRequiredContext(AppStoreContext);
